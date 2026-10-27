@@ -909,12 +909,20 @@ html.is-ready .hero-panel__media img { transform: scale(1); }
 
 .facts {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   margin: 36px 0;
   border-block: 1px solid var(--cream-200);
 }
-.facts__item { padding: 20px 14px 20px 0; }
+.facts__item { min-width: 0; padding: 20px 14px 20px 0; }
 .facts__item + .facts__item { padding-left: 16px; border-left: 1px solid var(--cream-200); }
+/* Item ímpar que sobra no celular ocupa a linha inteira */
+.facts__item:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  padding-inline: 0;
+  border-left: 0;
+  text-align: center;
+  border-top: 1px solid var(--cream-200);
+}
 .facts dt {
   font-family: var(--font-serif);
   font-size: 1.875rem;
@@ -922,7 +930,7 @@ html.is-ready .hero-panel__media img { transform: scale(1); }
   line-height: 1;
   color: var(--gold-ink);
 }
-.facts dd { margin: 8px 0 0; font-size: .8125rem; line-height: 1.45; color: var(--ink-500); }
+.facts dd { margin: 8px 0 0; font-size: .8125rem; line-height: 1.45; color: var(--ink-500); overflow-wrap: break-word; hyphens: auto; }
 
 .about__sign { margin-bottom: 28px; }
 .about__signature {
@@ -946,6 +954,10 @@ html.is-ready .hero-panel__media img { transform: scale(1); }
   .about__marble { top: auto; bottom: -25%; left: -22%; width: 70%; }
   .about__media { padding: 36px 0 0 36px; }
   .about__badge { left: -12px; }
+
+  .facts { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }
+  .facts__item:last-child:nth-child(odd) { grid-column: auto; padding-inline: 16px 14px; border-left: 1px solid var(--cream-200); border-top: 0; text-align: start; }
+  .facts dt { font-size: 1.5rem; }
 }
 
 @media (min-width: 1200px) {
