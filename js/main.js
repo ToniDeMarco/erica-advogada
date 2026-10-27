@@ -217,7 +217,7 @@
       mx = e.clientX; my = e.clientY;
       place(dot, mx, my);
       show(true);
-      ring.classList.toggle('is-hover', !!e.target.closest('a, button, summary, [data-cursor]'));
+      ring.classList.toggle('is-hover', !!e.target.closest('a, button, summary'));
     }, { passive: true });
     document.addEventListener('pointerdown', () => ring.classList.add('is-down'));
     document.addEventListener('pointerup', () => ring.classList.remove('is-down'));
@@ -247,6 +247,7 @@
       const href = a.href;
       const type = href.includes('whatsapp.com') ? 'whatsapp'
         : href.includes('instagram.com') ? 'instagram'
+        : href.includes('tiktok.com') ? 'tiktok'
         : href.includes('goo.gl') || href.includes('google.com/maps') ? 'maps'
         : null;
       if (!type) return;

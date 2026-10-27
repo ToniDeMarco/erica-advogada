@@ -33,7 +33,6 @@
   --navy-900: #061423;
   --navy-800: #0a1f35;
   --navy-700: #0d2a48;
-  --navy-600: #16375c;
 
   /* Dourado */
   --gold-600: #b08a45;
@@ -62,12 +61,9 @@
   /* Tipografia */
   --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
   --font-sans: "Manrope", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
-  --fs-display: clamp(2.5rem, 1.3rem + 5.4vw, 5rem);        /* 40px → 80px */
   --fs-h2: clamp(2rem, 1.35rem + 2.8vw, 3.5rem);             /* 32px → 56px */
-  --fs-h3: 1.5rem;
   --fs-lead: clamp(1.0625rem, 1rem + .35vw, 1.25rem);
   --fs-body: 1rem;
-  --fs-small: .875rem;
   --fs-eyebrow: .75rem;
 
   /* Layout */
@@ -139,8 +135,7 @@ section[id] { scroll-margin-top: calc(var(--header-h) - 8px); }
   border-radius: 2px;
 }
 
-.on-dark,
-.header, .hero, .formats, .cta, .footer, .service-card, .location__card { --focus: var(--gold-300); }
+.header, .hero, .formats, .cta, .footer, .service-card, .faq__item, .location__card { --focus: var(--gold-300); }
 
 ::selection { background: var(--gold-300); color: var(--navy-900); }
 
@@ -297,6 +292,8 @@ section[id] { scroll-margin-top: calc(var(--header-h) - 8px); }
 .btn--lg { min-height: 58px; padding: 1.05rem 2rem; font-size: 1.0625rem; }
 .btn--lg .icon { width: 1.45em; height: 1.45em; }
 .btn--block { width: 100%; }
+.btn--icon { width: 48px; padding: 0; }
+.btn--icon .icon { width: 20px; height: 20px; }
 
 .btn--xl {
   gap: 1rem;
@@ -1098,9 +1095,9 @@ html.is-ready .hero-panel__media img { transform: scale(1); }
   position: absolute;
   left: -6%;
   bottom: -12%;
-  width: clamp(320px, 48vw, 720px);
+  width: clamp(240px, 36vw, 540px);
   height: auto;
-  aspect-ratio: 120 / 84;
+  aspect-ratio: 70.3 / 63.2;
   color: var(--gold-400);
   opacity: .05;
   pointer-events: none;
@@ -1222,34 +1219,43 @@ html.is-ready .hero-panel__media img { transform: scale(1); }
 .faq__grid { display: grid; gap: 48px; }
 .faq__intro p { max-width: 36ch; margin-top: 1.5rem; color: var(--ink-500); }
 
-.faq__item { border-bottom: 1px solid rgba(12, 29, 48, .13); }
-.faq__item:first-child { border-top: 1px solid rgba(12, 29, 48, .13); }
+.faq__list { display: grid; gap: 12px; }
+/* cards no azul-escuro do mármore, como os de "Áreas de atuação" */
+.faq__item {
+  border: 1px solid rgba(216, 178, 106, .14);
+  border-radius: var(--radius-sm);
+  background: linear-gradient(160deg, var(--navy-700) 0%, var(--navy-800) 60%, var(--navy-900) 100%);
+  box-shadow: var(--shadow-sm);
+  transition: border-color .4s ease, box-shadow .4s ease;
+}
+.faq__item:hover, .faq__item[open] { border-color: rgba(216, 178, 106, .4); box-shadow: var(--shadow-md); }
 .faq__item summary {
   position: relative;
-  padding: 26px 56px 26px 0;
+  padding: 24px 64px 24px 28px;
   font-family: var(--font-serif);
   font-size: clamp(1.125rem, 1rem + .5vw, 1.3125rem);
   font-weight: 500;
   line-height: 1.4;
-  color: var(--ink-900);
+  color: var(--on-dark);
   list-style: none;
   cursor: pointer;
   transition: color .3s ease;
 }
 .faq__item summary::-webkit-details-marker { display: none; }
-.faq__item summary:hover { color: var(--gold-ink); }
+.faq__item summary:hover, .faq__item[open] summary { color: var(--gold-300); }
 .faq__item summary::before,
 .faq__item summary::after {
   content: "";
   position: absolute;
-  top: 50%; right: 12px;
+  top: 50%; right: 28px;
   width: 16px; height: 1.5px;
-  background: var(--gold-ink);
+  background: var(--gold-400);
   transition: transform .45s var(--ease-out);
 }
 .faq__item summary::after { transform: rotate(90deg); }
 .faq__item[open] summary::after { transform: rotate(0deg); }
-.faq__answer p { max-width: 64ch; margin: 0; padding: 0 0 28px; color: var(--ink-700); }
+.faq__answer p { max-width: 64ch; margin: 0; padding: 0 28px 26px; color: var(--on-dark-muted); }
+.faq__answer strong { color: var(--on-dark); }
 .faq__item[open] .faq__answer { animation: faqIn .55s var(--ease-out); }
 
 @keyframes faqIn {
@@ -1400,6 +1406,7 @@ html.is-ready .hero-panel__media img { transform: scale(1); }
 .review__avatar {
   display: grid;
   place-items: center;
+  flex-shrink: 0;
   width: 42px; height: 42px;
   border-radius: 50%;
   font-family: var(--font-serif);
@@ -1408,7 +1415,10 @@ html.is-ready .hero-panel__media img { transform: scale(1); }
   color: var(--gold-300);
   background: var(--navy-700);
 }
+.review__avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
 .review__g { width: 20px; height: 20px; margin-left: auto; }
+/* depoimentos curtos ficam melhores alinhados à esquerda do que justificados */
+.review blockquote p { text-align: start; }
 
 @media (min-width: 768px) {
   .reviews__google { justify-self: end; }
