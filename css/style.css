@@ -523,10 +523,10 @@ html.menu-open { overflow: hidden; }
   position: relative;
   isolation: isolate;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   min-height: 100vh;
   min-height: 100svh;
-  padding: calc(var(--header-h) + 48px) 0 96px;
+  padding: calc(var(--header-h) + 16px) 0 96px;
   color: var(--on-dark);
   background: var(--navy-900);
   overflow: hidden;
@@ -566,15 +566,17 @@ html.is-ready .hero__bg { transform: scale(1); }
 
 .hero-panel__body { display: grid; }
 
-.hero__content { padding: 36px clamp(24px, 4.5vw, 56px) 34px; }
+.hero__content { padding: 28px clamp(24px, 4.5vw, 56px) 34px; }
 
-/* Foto da advogada */
+/* Foto da advogada — no celular, card retrato que ocupa a primeira tela
+   deixando à vista a frase de especialidade logo abaixo */
 .hero-panel__media {
   position: relative;
   order: -1;
   margin: 0;
-  aspect-ratio: 5 / 4;
-  max-height: 360px;
+  aspect-ratio: 4 / 5;
+  min-height: 340px;
+  max-height: calc(100svh - var(--header-h) - 150px);
   width: 100%;
   overflow: hidden;
   background: var(--navy-800);
@@ -734,6 +736,7 @@ html.is-ready .hero-panel__media img { transform: scale(1); }
       url("../Assets/img/marble-dark.webp") center / cover;
   }
 
+  .hero { align-items: center; padding-top: calc(var(--header-h) + 48px); }
   .hero-panel__body { grid-template-columns: minmax(0, 1.25fr) minmax(0, .85fr); }
   .hero__content { align-self: center; padding-block: 52px 44px; }
   .hero__actions { justify-content: flex-start; }
